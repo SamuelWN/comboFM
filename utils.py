@@ -7,10 +7,10 @@ def concatenate_features(data_dir, feature_filenames):
     """
         This function concatenates the feature matrices in the files listed
         in feature_filenames.
-        
+
         Input:
         feature_filenames: list of the filenames of the features to be included
-        
+
         Output:
         X: final feature matrix (non-standardized)
         """
@@ -31,21 +31,21 @@ def standardize(X_train, X_test, i_aux):
         the mean and standard deviation computed on the train set.
         Standardization is performed only on the auxiliary descriptors,
         i.e. exluding the one-hot encoded features.
-        
+
         Input:
         X_train: Train set features (one-hot encoding of the tensor structure + auxiliary descriptors)
         X_test: Test set features (one-hot encoding of the tensor structure + auxiliary descriptors)
         i_aux: Index from which the auxiliary descriptors start to be standardized
                (to exclude the one-hot encodings from standardization)
-               
+
         Output:
         X_train: Scaled train set features
         X_test: Scaled test set features
     """
-    
+
     scaler = StandardScaler()
     scaler.fit(X_train[:,i_aux:])
     X_train[:,i_aux:] = scaler.transform(X_train[:,i_aux:])
     X_test[:,i_aux:] = scaler.transform(X_test[:,i_aux:])
-    
+
     return X_train, X_test
